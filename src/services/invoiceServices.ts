@@ -4,7 +4,7 @@ import { databases } from "../config/appWriteClient";
 
 
 export const createInvoiceService = async (data: any) => {
-  const { clientName, amount, vatRate = 0.15 } = data; // default 15%
+  const { clientName, amount, vatRate = 0.15 } = data;
   const total = amount + amount * vatRate;
 
   const result = await databases.createDocument(
