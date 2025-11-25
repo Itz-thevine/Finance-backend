@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import invoiceRoutes from "./routes/invoiceRoutes";
 import authRoutes from "./routes/authRoutes";
+import vatRoutes from "./routes/vatRoutes";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 // Routes
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/vat", vatRoutes)
 
 app.get("/", (req, res) => {
   res.send("Finance Management API is running");

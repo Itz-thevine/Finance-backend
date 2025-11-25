@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getCurrentUser, loginUser, registerUser } from "../services/authServices";
+import { getCurrentUser, loginUser, logoutUser, registerUser } from "../services/authServices";
 
 
 export const register = async (req: Request, res: Response) => {
@@ -23,10 +23,21 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const profile = async (req: Request, res: Response) => {
+  const session = req.headers['session'] as string;
   try {
-    const user = await getCurrentUser(req.headers.authorization!);
+    const user = await getCurrentUser(session as string);
     res.status(200).json({ user });
   } catch (err: any) {
     res.status(401).json({ error: err.message });
   }
 };
+
+export const logout = async (req: Request, res: Response) => {
+    try {
+      const session = req.headers['session'] as string;
+      const result = await logoutUser(session);
+      res.status(200).json(result);
+    } catch (err: any) {
+      res.status(400).json({ error: err.message });
+    }
+  };
